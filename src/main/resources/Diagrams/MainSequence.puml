@@ -1,0 +1,26 @@
+@startuml
+title "Main Sequence for success search"
+actor User
+participant MainController
+participant MainViewController
+participant MainModel
+participant AdDAO
+participant JobsCrawler
+participant JoobleCrawler
+participant ZaplataCrawler
+
+User -> MainViewController: Select site, enter ads number, provide search term, click search button
+MainViewController -> MainController: Request to initiate crawl process
+MainController -> MainModel: Get user inputs
+MainModel -> JobsCrawler: Call crawl method with search term and ads number
+MainModel -> JoobleCrawler: Call crawl method with search term and ads number
+MainModel -> ZaplataCrawler: Call crawl method with search term and ads number
+JobsCrawler -> AdDAO: Store ads information
+JoobleCrawler -> AdDAO: Store ads information
+ZaplataCrawler -> AdDAO: Store ads information
+MainModel -> MainController: Return crawled ads information
+MainController -> MainViewController: Update UI with crawled ads information
+MainViewController -> TableView: Update with crawled ads
+
+@enduml
+

@@ -1,0 +1,102 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+title "Class diagram"
+class AdDAO {
+  + AdDAO(AdEntity): 
+  + AddNewAd(AdDTO): void
+  + DeleteAdByURL(String): void
+  + GetAllAds(): List<AdDTO>
+  + SetSearchTerm(String): void
+  + GetAllAdsBySalary(String): List<AdDTO>
+  + GetSite(): String
+  + GetAllAdsByTitle(String): List<AdDTO>
+  + AddNewAds(List<AdDTO>): void
+  + GetSearchTerm(): String
+  + SetSite(String): void
+  + DeleteAllAds(): void
+}
+class AdDTO {
+  + AdDTO(String, String, String): 
+  - Title: String
+  - URL: String
+  - Salary: String
+   URL: String
+   Title: String
+   Salary: String
+}
+class AdEntity {
+  + AdEntity(List<AdDTO>, String, String): 
+  - Ads: List<AdDTO>
+  - Site: String
+  - SearchTerm: String
+   Ads: List<AdDTO>
+   Site: String
+   SearchTerm: String
+}
+class Crawler {
+  + Crawler(): 
+  + getPageContent(String): Document
+}
+interface IAdDAO << interface >> {
+  + SetSite(String): void
+  + DeleteAdByURL(String): void
+  + GetAllAds(): List<AdDTO>
+  + AddNewAds(List<AdDTO>): void
+  + GetSite(): String
+  + AddNewAd(AdDTO): void
+  + GetAllAdsBySalary(String): List<AdDTO>
+  + GetSearchTerm(): String
+  + DeleteAllAds(): void
+  + SetSearchTerm(String): void
+  + GetAllAdsByTitle(String): List<AdDTO>
+}
+interface ICrawler << interface >> {
+  + craw(String, int): List<AdDTO>
+}
+class JobsCrawler {
+  + JobsCrawler(): 
+  + craw(String, int): List<AdDTO>
+}
+class JoobleCrawler {
+  + JoobleCrawler(): 
+  + craw(String, int): List<AdDTO>
+}
+class MainApplication {
+  + MainApplication(): 
+  + start(Stage): void
+  + main(String[]): void
+}
+class MainController {
+  + MainController(AdDAO, MainModel): 
+  + Search(String, int, String): MainModel
+}
+class MainModel {
+  + MainModel(): 
+  - Ads: List<AdEntity>
+   Ads: List<AdEntity>
+}
+class MainViewController {
+  + MainViewController(AdDAO, MainModel): 
+  + initialize(): void
+  - showErrorDialog(String, String): void
+}
+class NumericFieldValidator {
+  + NumericFieldValidator(): 
+  + changed(ObservableValue<String>, String, String): void
+}
+class ZaplataCrawler {
+  + ZaplataCrawler(): 
+  + craw(String, int): List<AdDTO>
+}
+
+AdDAO                  -[#008200,dashed]-^  IAdDAO                
+JobsCrawler            -[#000082,plain]-^  Crawler               
+JobsCrawler            -[#008200,dashed]-^  ICrawler
+JoobleCrawler          -[#000082,plain]-^  Crawler
+JoobleCrawler          -[#008200,dashed]-^  ICrawler
+ZaplataCrawler         -[#000082,plain]-^  Crawler               
+ZaplataCrawler         -[#008200,dashed]-^  ICrawler              
+@enduml

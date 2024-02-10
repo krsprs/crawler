@@ -1,0 +1,12 @@
+@startuml
+
+title "Error Sequence"
+
+actor User
+participant MainViewController
+participant Alert
+
+User -> MainViewController: Select site, does not enter ads number, provide search term, click search button
+MainViewController -> Alert: Display error message
+@enduml
+
