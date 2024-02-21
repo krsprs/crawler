@@ -23,4 +23,3 @@ MainController -> MainViewController: Update UI with crawled ads information
 MainViewController -> TableView: Update with crawled ads
 
 @enduml
-
